@@ -2,6 +2,8 @@
 DDNS like api for name.com
 You can run it on vps and call url from openwrt to update record
 
+It could also help to update TXT record if you use certbot.
+
 ## usage
 ```
 ddns_namecom [--bindaddress address]
