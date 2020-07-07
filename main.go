@@ -23,6 +23,7 @@ type ddns_namecom struct {
 	update_type string
 	host        string
 	delete_dup  string
+	delete_all  string
 	client      *namecom.NameCom
 	records     []*namecom.Record
 }
@@ -43,6 +44,7 @@ func update_handler(w http.ResponseWriter, r *http.Request) {
 		recreate:    r.FormValue("recreate"),
 		update_type: r.FormValue("type"),
 		delete_dup:  r.FormValue("deletedup"),
+		delete_all:  r.FormValue("deleteall"),
 	}
 
 	if ddns.update_type == "" {
@@ -82,7 +84,6 @@ func (d *ddns_namecom) update_record() bool {
 	for _, record := range d.records {
 		if record.Host == d.host && record.Type == d.update_type {
 			matchedcounter += 1
-
 			record.Answer = d.answer
 			_, err := d.client.UpdateRecord(record)
 			if err != nil {
@@ -194,7 +195,7 @@ func (d *ddns_namecom) update_ddns() bool {
 
 	// if recreate then delete all record and create it again
 	var trycreate bool
-	if d.recreate == "1" {
+	if d.recreate == "1" || d.delete_all == "1" {
 		log.Println("Try delete all record match this domain")
 		if !d.delete_record() {
 			log.Println("Delete record fail")
@@ -206,7 +207,7 @@ func (d *ddns_namecom) update_ddns() bool {
 			trycreate = true
 		}
 	}
-	if d.recreate == "1" || trycreate {
+	if d.recreate == "1" || trycreate && d.delete_all != "1" {
 		if !d.create_record() {
 			log.Println("Create record fail, GG")
 			return false
