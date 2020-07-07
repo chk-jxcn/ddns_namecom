@@ -24,6 +24,8 @@ updateall: update all record, but name.com don't allow same host keep same answe
 deletedup: delete record if dupcation record exist.
 
 ```
-
+```
+Note: if Type is A record and answer not present, it will use ip from header[X-Real-IP] or header[X-FORWARDED-FOR] or remote peer ip
+```
 ## license
 None
