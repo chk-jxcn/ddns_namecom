@@ -19,7 +19,7 @@ domain: domain to update
 username: name.com username
 token: name.com API token
 answer: dns answer
-updatetype: record Type, default "A"
+type: record Type, default "A"
 recreate: delete all record of this domain and create a new one.
 updateall: update all record, but name.com don't allow same host keep same answer, only one record could be update.
 deletedup: delete record if dupcation record exist.
