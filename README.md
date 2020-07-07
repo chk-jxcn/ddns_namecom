@@ -1,5 +1,6 @@
 # ddns_namecom
-ddns like api for name.com
+DDNS like api for name.com
+You can run it on vps and call url from openwrt to update record
 
 ## usage
 ```
